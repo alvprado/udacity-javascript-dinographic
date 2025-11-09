@@ -117,6 +117,53 @@ function createDinoTile(dino, human) {
 }
 
 /**
+ * Form validation
+ * @param {object} form 
+ * @returns A boolean indicating if the form is valid or not. If the form is invalid, an alert is send.
+ */
+export function validateForm(form) {
+  const errors = [];
+
+  const name   = form.name.value.trim();
+  const feet   = Number(form.feet.value);
+  const inches = Number(form.inches.value);
+  const weight = Number(form.weight.value);
+
+  // Check for empty name
+  if (!name) {
+    errors.push("Please enter your name.");
+  }
+
+  // Check for empty (zero) or an invalid feet value.
+  if(feet === 0)
+  {
+    errors.push("Please enter your height.")
+  } else if (Number.isNaN(feet) || feet < 0) {
+    errors.push("Feet must be a non-negative number.");
+  }
+
+  // Inches can be zero. Check for invalid values.
+  if (Number.isNaN(inches) || inches < 0 || inches >= 12) {
+    errors.push("Inches must be between 0 and 11.");
+  }
+
+  // Check for missing or invalid weight.
+  if(weight === 0)
+  {
+    errors.push("Please enter your weight.")
+  } else if (Number.isNaN(weight) || weight <= 0) {
+    errors.push("Weight must be a positive number.");
+  }
+
+  if (errors.length > 0) {
+    alert(errors.join("\n"));
+    return false;               
+  }
+
+  return true;                  
+}
+
+/**
  * Creates a human tile
  * @param {Object} human 
  * @returns A tile of an human

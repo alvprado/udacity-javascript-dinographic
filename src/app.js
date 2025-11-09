@@ -1,7 +1,8 @@
 import { Human } from "./human.js";
 import {
   loadDinos,
-  buildGrid
+  buildGrid,
+  validateForm
 } from "./utils.js";
 
 (function(){
@@ -10,6 +11,12 @@ import {
 
   btn.addEventListener("click", function(event){
     event.preventDefault();
+
+    if(!validateForm(form))
+    {
+      return;
+    }
+
     form.requestSubmit();
   })
 
